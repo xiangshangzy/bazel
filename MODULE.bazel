@@ -1,6 +1,12 @@
-###############################################################################
-# Bazel now uses Bzlmod by default to manage external dependencies.
-# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
-#
-# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
-###############################################################################
+module(
+    name = "bazel_project",
+    version = "0.0.1",
+)
+
+new_git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
+new_git_repository(
+    name = "jsoncpp",
+    commit = "69098a18b9af0c47549d9a271c054d13ca92b006",
+    remote = "https://gitee.com/mirrors/jsoncpp.git",
+    build_file= "third_party/BUILD.jsoncpp"
+)
