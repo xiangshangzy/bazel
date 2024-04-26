@@ -1,5 +1,7 @@
 cc_binary(
     name = "main",
     srcs = ["main.cc"],
-    deps = ["@jsoncpp"],
+    deps = [
+        "@boost//:boost_system",
+    ],
 )

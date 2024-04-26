@@ -1,12 +1,9 @@
-#include "json/json.h"
+#include <boost/asio.hpp>
 #include <iostream>
 #include <fstream>
 int main(int argc, char const *argv[])
 {
-    std::ifstream config_doc("D:/tmp/language.json", std::ifstream::binary);
-    Json::Value root;
-    config_doc >> root;
-    std::string my_encoding = root.get("my-encoding", "UTF-error").asString();
-    std::cout << my_encoding << std::endl;
+    using namespace boost::asio;
+    
     return 0;
 }

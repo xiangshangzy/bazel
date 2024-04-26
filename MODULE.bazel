@@ -2,11 +2,20 @@ module(
     name = "bazel_project",
     version = "0.0.1",
 )
-
-new_git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
-new_git_repository(
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
+jsoncpp_commit = "69098a18b9af0c47549d9a271c054d13ca92b006"
+jsoncpp_sha256 = "3fbaa526f82df57744b3ce59bd00e0fe6fb3feb27ab62d9fd3a105baaaa4c268"
+http_archive(
     name = "jsoncpp",
-    commit = "69098a18b9af0c47549d9a271c054d13ca92b006",
-    remote = "https://gitee.com/mirrors/jsoncpp.git",
-    build_file= "third_party/BUILD.jsoncpp"
+    urls = ["https://github.com/open-source-parsers/jsoncpp/archive/{commit}.tar.gz".format(commit = jsoncpp_commit)],
+    sha256 = jsoncpp_sha256,
+    strip_prefix = "jsoncpp-{commit}".format(commit = jsoncpp_commit),
+    build_file = "third_party/jsoncpp.BUILD",
+)
+
+new_local_repository(
+    name = "boost",
+    build_file = "third_party/boost.BUILD",
+    path = "F:/boost_1_85_0",
 )
