@@ -5,8 +5,6 @@ int main()
 
   Solution s;
   vector<int>v1{10};
-  vector<int> v2{10};
-  cout << v1.size() << endl;
-  cout << v2.size() << endl;
+  cout << 1/2<<endl;
   return 0;
 }
