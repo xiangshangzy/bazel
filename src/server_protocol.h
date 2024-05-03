@@ -1,6 +1,7 @@
 #include <boost/asio.hpp>
 #include <iostream>
 #include <fstream>
+#include <concurrent_quene.h>
 using namespace boost::asio;
 using namespace boost::asio::ip;
 using namespace boost::asio::ip;
@@ -9,6 +10,8 @@ class Conn : std::enable_shared_from_this<Conn>
 public:
     Conn(tcp::socket &sock) : sock_(std::move(sock))
     {
+        moodycamel::ConcurrentQueue<int> q(10);
+        q.try_enqueue_bulk(10);
     }
     void Start()
     {
@@ -59,7 +62,6 @@ class Server
 {
 public:
     Server(io_context &io_ctx, short port) : acceptor_(io_ctx, ip::tcp::endpoint(tcp::v4(), port)) {}
-
 private:
     tcp::acceptor acceptor_;
     void do_accpet()
@@ -74,9 +76,3 @@ private:
             });
     }
 };
-
-int main(int argc, char const *argv[])
-{
-
-    return 0;
-}

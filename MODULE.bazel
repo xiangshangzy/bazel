@@ -2,6 +2,7 @@ module(
     name = "bazel_project",
     version = "0.0.1",
 )
+bazel_dep(name = "platforms", version = "0.0.10")
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
 jsoncpp_commit = "69098a18b9af0c47549d9a271c054d13ca92b006"
@@ -18,4 +19,8 @@ new_local_repository(
     name = "boost",
     build_file = "third_party/boost.BUILD",
     path = "F:/boost_1_85_0",
+)
+
+register_toolchains(
+    "//toolchain:cc_toolchain_for_linux_x86_64"
 )
